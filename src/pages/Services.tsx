@@ -89,32 +89,37 @@ const Services = () => {
     <div className="min-h-screen pt-24 pb-20 px-4">
       <div className="container mx-auto">
         {/* Hero */}
-        <div className="text-center mb-16 animate-fade-in">
-          <h1 className="text-5xl font-bold mb-6">
-            Our <span className="gradient-primary bg-clip-text text-transparent">Services</span>
+        <div className="text-center mb-24 animate-fade-in relative">
+          <div className="absolute inset-0 gradient-mesh opacity-30 blur-3xl" />
+          <h1 className="text-6xl md:text-7xl font-bold mb-8 relative z-10">
+            Our <span className="text-gradient">Services</span>
           </h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-2xl text-muted-foreground max-w-3xl mx-auto relative z-10">
             Comprehensive design solutions tailored for startups and growing businesses
           </p>
         </div>
 
         {/* Services Grid */}
-        <section className="mb-20">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <section className="mb-32">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
             {services.map((service, index) => (
-              <Card key={index} className="p-8 hover:shadow-glow transition-smooth">
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-lg gradient-primary flex items-center justify-center flex-shrink-0">
-                    <service.icon className="text-primary-foreground" size={24} />
+              <Card 
+                key={index} 
+                className="p-10 hover-lift bg-card/50 backdrop-blur-sm border-2 border-border/50 hover:border-primary/50 transition-smooth group"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <div className="flex items-start gap-6">
+                  <div className="w-16 h-16 rounded-2xl gradient-primary flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-spring shadow-glow">
+                    <service.icon className="text-primary-foreground" size={32} />
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-2xl font-semibold mb-3">{service.title}</h3>
-                    <p className="text-muted-foreground mb-4">{service.description}</p>
-                    <ul className="space-y-2">
+                    <h3 className="text-3xl font-bold mb-4 group-hover:text-primary transition-smooth">{service.title}</h3>
+                    <p className="text-muted-foreground mb-6 text-lg leading-relaxed">{service.description}</p>
+                    <ul className="space-y-3">
                       {service.features.map((feature, idx) => (
-                        <li key={idx} className="flex items-center gap-2 text-sm">
-                          <Check className="text-primary flex-shrink-0" size={16} />
-                          <span>{feature}</span>
+                        <li key={idx} className="flex items-center gap-3">
+                          <Check className="text-primary flex-shrink-0 group-hover:scale-110 transition-spring" size={20} />
+                          <span className="text-base">{feature}</span>
                         </li>
                       ))}
                     </ul>
@@ -126,39 +131,45 @@ const Services = () => {
         </section>
 
         {/* Pricing */}
-        <section>
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4">Transparent Pricing</h2>
-            <p className="text-xl text-muted-foreground">Choose the plan that fits your needs</p>
+        <section className="relative">
+          <div className="absolute inset-0 gradient-mesh opacity-20 blur-3xl" />
+          <div className="text-center mb-20 relative z-10">
+            <h2 className="text-5xl md:text-6xl font-bold mb-6">Transparent Pricing</h2>
+            <p className="text-2xl text-muted-foreground">Choose the plan that fits your needs</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-7xl mx-auto relative z-10">
             {pricingPlans.map((plan, index) => (
               <Card
                 key={index}
-                className={`p-8 ${plan.popular ? "border-2 border-primary shadow-glow-xl" : ""}`}
+                className={`p-10 hover-lift transition-smooth group ${
+                  plan.popular 
+                    ? "border-2 border-primary shadow-glow-xl scale-105 md:scale-110" 
+                    : "border-2 border-border/50"
+                }`}
+                style={{ animationDelay: `${index * 0.15}s` }}
               >
                 {plan.popular && (
-                  <div className="gradient-primary text-primary-foreground text-sm font-semibold px-3 py-1 rounded-full inline-block mb-4">
+                  <div className="gradient-primary text-primary-foreground text-sm font-bold px-4 py-2 rounded-full inline-block mb-6 shadow-glow animate-scale-in">
                     Most Popular
                   </div>
                 )}
-                <h3 className="text-2xl font-bold mb-2">{plan.name}</h3>
-                <div className="text-4xl font-bold mb-2">
+                <h3 className="text-3xl font-bold mb-4 group-hover:text-primary transition-smooth">{plan.name}</h3>
+                <div className="text-5xl font-bold mb-3">
                   {plan.price}
-                  <span className="text-lg text-muted-foreground font-normal">/project</span>
+                  <span className="text-xl text-muted-foreground font-normal">/project</span>
                 </div>
-                <p className="text-muted-foreground mb-6">{plan.description}</p>
-                <ul className="space-y-3 mb-8">
+                <p className="text-muted-foreground mb-8 text-lg">{plan.description}</p>
+                <ul className="space-y-4 mb-10">
                   {plan.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-start gap-2">
-                      <Check className="text-primary flex-shrink-0 mt-0.5" size={18} />
-                      <span className="text-sm">{feature}</span>
+                    <li key={idx} className="flex items-start gap-3">
+                      <Check className="text-primary flex-shrink-0 mt-1 group-hover:scale-110 transition-spring" size={20} />
+                      <span className="text-base">{feature}</span>
                     </li>
                   ))}
                 </ul>
                 <Button
                   variant={plan.popular ? "hero" : "default"}
-                  className="w-full"
+                  className="w-full text-lg py-6 hover:scale-105 transition-spring"
                   asChild
                 >
                   <Link to="/contact">Get Started</Link>
